@@ -57,14 +57,19 @@
   }
 }
 
-/* remove floating sidebar on hover */
+[zen-floating-url-bar="true"] {
+  display: flex !important;
+}
 
+/* remove floating sidebar on hover */
 [zen-compact-mode="true"] {
   #navigator-toolbox {
     display: none !important;
   }
 }
 
+
+/* remove navbar */
 #titlebar, #navigator-toolbox  {
   --zen-toolbar-height: 0 !important;
 } 
@@ -73,13 +78,38 @@
   display: none !important;
 }
 
+/* remove navbar */
 #zen-appcontent-navbar-wrapper {
-  height: 8px;
-  
-  * {
-    display: none !important;
-  }
+  height: 8px !important; 
+  background: transparent !important;
+  overflow: visible !important;
+  border: none !important;
 }
+
+#nav-bar,
+#urlbar-container {
+  min-height: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+#nav-bar > *:not(#nav-bar-customization-target),
+#nav-bar-customization-target > *:not(#urlbar-container) {
+  display: none !important;
+}
+
+#urlbar:not([focused]) {
+  opacity: 0 !important;
+  pointer-events: none !important; 
+}
+
+#urlbar {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
 
 /* hide worksapce indicator */
 .zen-current-workspace-indicator:not(:has(.tab-label-container-editing)) {
@@ -94,3 +124,4 @@
 .zen-workspace-close-unpinned-tabs-button {
   display: none !important;
 }
+
