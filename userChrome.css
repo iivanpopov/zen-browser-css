@@ -68,19 +68,20 @@
   }
 }
 
-
 /* remove navbar */
-#titlebar, #navigator-toolbox  {
+#titlebar,
+#navigator-toolbox {
   --zen-toolbar-height: 0 !important;
-} 
+}
 
 #zen-sidebar-top-buttons {
   display: none !important;
 }
 
 /* remove navbar */
+/* requires about:config zen.view.shift-down-site-on-hover = true*/
 #zen-appcontent-navbar-wrapper {
-  height: 8px !important; 
+  height: 8px !important;
   background: transparent !important;
   overflow: visible !important;
   border: none !important;
@@ -102,7 +103,7 @@
 
 #urlbar:not([focused]) {
   opacity: 0 !important;
-  pointer-events: none !important; 
+  pointer-events: none !important;
 }
 
 #urlbar {
@@ -110,18 +111,17 @@
   pointer-events: auto !important;
 }
 
-
 /* hide worksapce indicator */
 .zen-current-workspace-indicator:not(:has(.tab-label-container-editing)) {
   visibility: collapse !important;
 }
 
 /* remove close and reset btn */
-.tab-close-button, .tab-reset-button {
+.tab-close-button,
+.tab-reset-button {
   display: none !important;
 }
 
 .zen-workspace-close-unpinned-tabs-button {
   display: none !important;
 }
-
