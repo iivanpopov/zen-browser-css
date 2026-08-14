@@ -1,90 +1,116 @@
-/* add missing spacing in collapsed view (cause lean/hide toolbar) */
-#TabsToolbar {
-  margin-top: 6px !important;
+/* vars */
+:root {
+  --my-sidebar-width: 52px;
+  --my-tab-size: 40px;
 }
 
-/* 40x40 tab buttons in collapsed view */
-#zen-main-app-wrapper:has(
-  #navigator-toolbox:not([zen-sidebar-expanded="true"])
-) {
-  .tabbrowser-tab {
-    width: 40px !important;
-  }
+/* collapsed view */
+#TabsToolbar {
+  margin-top: 8px !important;
+}
 
-  .tab-content {
-    width: 40px !important;
-  }
-
-  .tab-loading-burst {
-    width: 40px !important;
-  }
-
-  .tab-background {
-    width: 40px !important;
-  }
-
-  .tab-icon-overlay {
-    display: none !important;
-  }
-
-  #navigator-toolbox {
-    width: 52px !important;
-    --actual-zen-sidebar-width: 52px !important;
-    --zen-sidebar-width: 52px !important;
-  }
-
-  #TabsToolbar {
-    width: 52px !important;
-  }
-
+#zen-main-app-wrapper:has(#navigator-toolbox:not([zen-sidebar-expanded="true"])) {
+  /* sidebar width */
+  #navigator-toolbox,
+  #TabsToolbar,
   #titlebar {
-    width: 52px !important;
+    width: var(--my-sidebar-width) !important;
+    min-width: var(--my-sidebar-width) !important;
+    max-width: var(--my-sidebar-width) !important;
+    --actual-zen-sidebar-width: var(--my-sidebar-width) !important;
+    --zen-sidebar-width: var(--my-sidebar-width) !important;
   }
 
-  #navigator-toolbox:not([zen-sidebar-expanded="true"]) {
-    max-width: 52px !important;
-    min-width: 52px !important;
+  /* fix folders and tabs layout */
+  zen-folder {
+    width: var(--my-tab-size) !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+  }
+
+  zen-folder::before {
+    width: var(--my-tab-size) !important;
+    height: var(--my-tab-size) !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+
+  .tabbrowser-tab {
+    width: var(--my-tab-size) !important;
+  }
+
+  .tab-content,
+  .tab-loading-burst,
+  .tab-background {
+    height: var(--my-tab-size) !important;
+    width: var(--my-tab-size) !important;
+    margin: 0 !important;
   }
 
   #downloads-button,
   #zen-create-new-button {
-    width: 40px !important;
-    height: 40px !important;
+    width: var(--my-tab-size) !important;
+    height: var(--my-tab-size) !important;
   }
 
   #zen-create-new-button {
     margin-bottom: 10px !important;
   }
-}
 
-[zen-floating-url-bar="true"] {
-  display: flex !important;
-}
-
-/* remove floating sidebar on hover */
-[zen-compact-mode="true"] {
-  #navigator-toolbox {
+  /* hide tab overlays */
+  .tab-icon-overlay {
     display: none !important;
+  }
+
+  /* flex gap */
+  .zen-workspace-normal-tabs-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* pinned tabs margins */
+  .zen-workspace-pinned-tabs-section zen-folder,
+  .zen-workspace-pinned-tabs-section .tab-group-container .tabbrowser-tab {
+    margin-top: 4px !important;
   }
 }
 
-/* remove navbar */
+/* compact mode */
+[zen-compact-mode="true"] #navigator-toolbox {
+  display: none !important;
+}
+
+/* hide ui elements & window controls */
+#zen-sidebar-top-buttons,
+.tab-close-button,
+.tab-reset-button,
+.zen-workspace-close-unpinned-tabs-button,
+.zen-current-workspace-indicator:not(:has(.tab-label-container-editing)),
+.titlebar-buttonbox-container {
+  display: none !important;
+}
+
 #titlebar,
 #navigator-toolbox {
   --zen-toolbar-height: 0 !important;
 }
 
-#zen-sidebar-top-buttons {
-  display: none !important;
-}
-
-/* remove navbar */
-/* requires about:config zen.view.shift-down-site-on-hover = true*/
+/* invisible navbar */
+/* requires about:config: zen.view.shift-down-site-on-hover = true */
 #zen-appcontent-navbar-wrapper {
   height: 8px !important;
+  transform: translateY(-999px);
   background: transparent !important;
   overflow: visible !important;
   border: none !important;
+}
+
+/* hide in fullscreen */
+:root[inFullscreen][zen-compact-mode="true"] #zen-appcontent-navbar-wrapper,
+:root[inDOMFullscreen][zen-compact-mode="true"] #zen-appcontent-navbar-wrapper {
+  height: 0 !important;
 }
 
 #nav-bar,
@@ -96,32 +122,24 @@
   padding: 0 !important;
 }
 
+/* keep only urlbar */
 #nav-bar > *:not(#nav-bar-customization-target),
 #nav-bar-customization-target > *:not(#urlbar-container) {
   display: none !important;
 }
 
-#urlbar:not([focused]) {
+/* hide urlbar */
+#urlbar {
   opacity: 0 !important;
   pointer-events: none !important;
+  transition: opacity 0.15s ease-in-out !important;
 }
 
-#urlbar {
+/* show urlbar on focus */
+#urlbar:focus-within,
+#urlbar[focused="true"] {
   opacity: 1 !important;
   pointer-events: auto !important;
 }
 
-/* hide worksapce indicator */
-.zen-current-workspace-indicator:not(:has(.tab-label-container-editing)) {
-  visibility: collapse !important;
-}
-
-/* remove close and reset btn */
-.tab-close-button,
-.tab-reset-button {
-  display: none !important;
-}
-
-.zen-workspace-close-unpinned-tabs-button {
-  display: none !important;
-}
+/* requires  zen.view.experimental-no-window-controls	true */
