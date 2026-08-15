@@ -1,4 +1,4 @@
-/* add missing spacing in collapsed view (cause lean/hide toolbar) */
+/* add missing spacing in collapsed view  */
 #TabsToolbar {
   margin-top: 6px !important;
 }
@@ -87,10 +87,15 @@
   border: none !important;
 }
 
+#zen-appcontent-navbar-container {
+  transform: translateY(-9999px);
+}
+
 #nav-bar,
 #urlbar-container {
   min-height: 0 !important;
   background: transparent !important;
+  transform: translateY(-9999px);
   box-shadow: none !important;
   border: none !important;
   padding: 0 !important;
